@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Movie from "./Movie";
 import { MyContext } from "../../context/context";
@@ -8,13 +7,25 @@ import { MOVIES } from "../../tests/produtos";
 
 import { TrendingTitle } from "../../styles/movies.components.style"
 
+import Select from "react-select"
+
 export function Movies() {
     const [movies, setMovies] = useState(MOVIES);
     const [genres, setGenres] = useState([]);
+    const [genreName, setGenreName] = useState(28);
+    const [moviesGenre, setMoviesGenre] = useState([]);
 
     const { addMovieToCart } = useContext(MyContext);
 
     const history = useHistory();
+    
+    const options = [];
+    
+    const loadOptions = () => {
+        for (let i = 0; i < genres.length; i++) {
+            options.push({value: genres[i].id, label: genres[i].name});
+        }
+    };
 
     useEffect(() => {
         const run = async () => {
@@ -23,18 +34,29 @@ export function Movies() {
 
             const genres = await MovieService.getGenres();
             setGenres(genres.genres);
-
         };
 
         run();
 
     }, []);
 
+    useEffect(() => {
+        const findMovies = async () => {
+            const genreMovies = await MovieService.getGenresMovies(genreName);
+            setMoviesGenre(genreMovies.results);
+        };
+
+        findMovies();
+    }, [genreName]);
+
+    
+
     const goToMovies = (idMovies) => {
         history.push(`/movies/${idMovies}`);
     };
 
     const render = () => {
+        loadOptions();
         return (
             <div style={{ display: "flex", flexWrap: "wrap", flexDirection: "row", width: "97%", marginLeft: "75px" }}>
                 {movies.map((movie) => {
@@ -51,12 +73,11 @@ export function Movies() {
         );
     };
 
-/*     const findByGenre = async (genreId) => {
-        const movies = await MovieService.getGenresMovies(genreId);
-        console.log(movies); */
-        /* return (
+
+    const findByGenre = () => {
+        return (
             <div style={{ display: "flex", flexWrap: "wrap", flexDirection: "row", width: "97%", marginLeft: "75px" }}>
-                {movies.map((movie) => {
+                {moviesGenre.map((movie) => {
                     return (
                         <Movie
                             key={movie.id}
@@ -67,8 +88,10 @@ export function Movies() {
                     );
                 })}
             </div>
-        ); */
-/*     } */
+        );
+    } 
+
+    
 
     return (
         <div style={{ padding: 20 }}>
@@ -77,22 +100,13 @@ export function Movies() {
             <div>
                 <TrendingTitle> 
                     <hr /> 
-                    
-                    <label>
-                        GENRE
-                        <input list="genres" name="myGenres" onChange={console.log()} />
-                    </label>
-                    <datalist  id="genres">
-                        <option value="Action" />
-                        {
-                            genres.map(genre => {
-                                return <option key={genre.id} value={genre.name} />
-                            })
-                        }
-                    </datalist>
+
+                    <Select options={options} onChange={(e) => {setGenreName(e.value)}}  />
                     
                     <hr />
                 </TrendingTitle>
+
+                {findByGenre()}
             </div>
         </div>
     );

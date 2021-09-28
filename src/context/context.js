@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 export const MyContext = React.createContext({
     cartMovies: [],
-    user: true,
+    user: false,
 });
 
 export function MyProvider({ children }) {
