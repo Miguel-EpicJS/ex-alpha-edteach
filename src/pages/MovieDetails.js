@@ -1,9 +1,7 @@
 
 import axios from "axios";
-import { useEffect, useState, useMemo, useContext } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router";
-import { useHistory, Link } from "react-router-dom";
-import { MyContext } from "../context/context";
 
 import { MovieImg, Flex, } from "../styles/movieDetails.pages.style"
 
@@ -37,16 +35,18 @@ export function MovieDetails() {
   const [movie, setMovie] = useState(null);
   const [recommendedMovies, setRecommendedMovies] = useState(null);
   const [creditsMovies, setCreditsMovies] = useState([]);
-  const { cartMovies, addMovieToCart } = useContext(MyContext);
 
   const params = useParams();
-  const history = useHistory();
 
-  useEffect(async () => {
-    setMovie(await getMovie(params.id));
-    setRecommendedMovies(await getRecommendedMovies(params.id));
-    setCreditsMovies((await getCreditsMovies(params.id)).cast);
-  }, []);
+  useEffect(() => {
+    async function fetchData() {
+      setMovie(await getMovie(params.id));
+      setRecommendedMovies(await getRecommendedMovies(params.id));
+      setCreditsMovies((await getCreditsMovies(params.id)).cast);
+    }
+
+    fetchData();
+  }, [params.id]);
 
   const goToMovies = (idMovies) => {
     window.location.href = `/movies/${idMovies}`;
@@ -63,7 +63,7 @@ export function MovieDetails() {
 
     return recommendedMovies.results.map((movie) => {
       return (
-        <img onClick={() => { goToMovies(movie.id) }} src={imgUrl + movie.poster_path} width="300px" style={{margin: "8px"}} />
+        <img alt="" onClick={() => { goToMovies(movie.id) }} src={imgUrl + movie.poster_path} width="300px" style={{margin: "8px"}} />
       );
     });
 

@@ -12,7 +12,7 @@ export function Movies() {
     const [movies, setMovies] = useState(MOVIES);
     const [genres, setGenres] = useState([]);
 
-    const { cartMovies, addMovieToCart } = useContext(MyContext);
+    const { addMovieToCart } = useContext(MyContext);
 
     const history = useHistory();
 
@@ -28,7 +28,6 @@ export function Movies() {
 
         run();
 
-        console.log(genres);
     }, []);
 
     const goToMovies = (idMovies) => {
@@ -52,9 +51,9 @@ export function Movies() {
         );
     };
 
-    const findByGenre = async (genreId) => {
+/*     const findByGenre = async (genreId) => {
         const movies = await MovieService.getGenresMovies(genreId);
-        console.log(movies);
+        console.log(movies); */
         /* return (
             <div style={{ display: "flex", flexWrap: "wrap", flexDirection: "row", width: "97%", marginLeft: "75px" }}>
                 {movies.map((movie) => {
@@ -69,7 +68,7 @@ export function Movies() {
                 })}
             </div>
         ); */
-    }
+/*     } */
 
     return (
         <div style={{ padding: 20 }}>

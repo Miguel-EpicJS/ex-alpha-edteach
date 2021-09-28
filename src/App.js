@@ -1,14 +1,13 @@
 import React from "react";
 import { router } from "./router";
-import { useContext } from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import { MyProvider, MyContext } from "./context/context"
+import { MyProvider } from "./context/context"
 
 export default function RouterExample() {
 
-  const value = useContext(MyContext);
-  /* if (value.user === false && window.location.pathname !== "/") {
+/*   const value = useContext(MyContext);
+ */  /* if (value.user === false && window.location.pathname !== "/") {
     return (
       <Router>
         <MyProvider>

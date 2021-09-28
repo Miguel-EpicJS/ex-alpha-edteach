@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -22,7 +22,6 @@ const validationSchema = Yup.object().shape({
 });
 
 function FormikLoginForm(props) {
-  const [formValues, setFormValues] = useState();
   return (
     <LoginBody>
       <PageWrapper>
