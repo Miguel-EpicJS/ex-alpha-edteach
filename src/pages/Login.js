@@ -1,26 +1,34 @@
 import React from "react";
 import FormikLoginForm from "../components/Formik/LoginForm";
-import { MyContext } from "../context/context"
-import {useHistory} from "react-router-dom"
+import { useHistory } from "react-router-dom";
 
 export default function LoginForm() {
   const initialValues = {
     email: '',
     password: ''
   }
+  const history = useHistory()
 
-  const history = useHistory();
-
-  const value  = React.useContext(MyContext);
 
   const onSubmit = values => {
+    if(localStorage.getItem("login") === null){
+      const log = { logged: false, created_date: new Date().getMilliseconds(), logged_date: null, disconnected_date: null, attempted: [new Date().getMilliseconds()]};
+      localStorage.setItem("login", JSON.stringify(log));
+    }
+
     if (values.email === "admin@admin.com" && values.password === "admin") {
-      value.user = true;
-      console.log(value.user)
+      const user = JSON.parse(localStorage.getItem("login"));
+      const log = {...user, logged: true, logged_date: new Date().getMilliseconds(), disconnected_date: null};
+
+      localStorage.setItem("login", JSON.stringify(log));
+    
       history.push("/movies");
     }else{
-      console.log("errado");
+      const user = JSON.parse(localStorage.getItem("login"));
+      user.attempted.push(new Date().getMilliseconds());
     }
+
+    console.log(JSON.parse(localStorage.getItem("login")));
   }
 
   return (

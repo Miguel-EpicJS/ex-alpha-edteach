@@ -9,7 +9,8 @@ export const MovieImg = styled.img`
 
 export const Flex = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     margin-top: 50px;
+    text-align:center;
 `

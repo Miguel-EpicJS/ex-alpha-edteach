@@ -37,7 +37,6 @@ function FormikLoginForm(props) {
             errors,
             touched,
             handleSubmit,
-            isSubmitting,
             isValidating,
             isValid
           }) => {
@@ -80,8 +79,8 @@ function FormikLoginForm(props) {
                     </StyledInlineErrorMessage>
                   )}
 
-                  <Submit type="submit" disabled={!isValid || isSubmitting}>
-                    {isSubmitting ? `Submiting...` : `Submit`}
+                  <Submit type="submit" disabled={!isValid}>
+                    { `Submit`}
                   </Submit>
                 </Form>
 

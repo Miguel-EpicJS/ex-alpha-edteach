@@ -9,6 +9,9 @@ import { TrendingTitle } from "../../styles/movies.components.style"
 
 import Select from "react-select"
 
+import Layout from "../../pages/Layout";
+
+
 export function Movies() {
     const [movies, setMovies] = useState(MOVIES);
     const [genres, setGenres] = useState([]);
@@ -18,12 +21,12 @@ export function Movies() {
     const { addMovieToCart } = useContext(MyContext);
 
     const history = useHistory();
-    
+
     const options = [];
-    
+
     const loadOptions = () => {
         for (let i = 0; i < genres.length; i++) {
-            options.push({value: genres[i].id, label: genres[i].name});
+            options.push({ value: genres[i].id, label: genres[i].name });
         }
     };
 
@@ -49,7 +52,7 @@ export function Movies() {
         findMovies();
     }, [genreName]);
 
-    
+
 
     const goToMovies = (idMovies) => {
         history.push(`/movies/${idMovies}`);
@@ -89,25 +92,28 @@ export function Movies() {
                 })}
             </div>
         );
-    } 
+    }
 
-    
+
 
     return (
-        <div style={{ padding: 20 }}>
-            <TrendingTitle> <hr /> TRENDING <hr /></TrendingTitle>
-            {render()}
-            <div>
-                <TrendingTitle> 
-                    <hr /> 
+        <Layout >
+            <div style={{ padding: 20 }}>
+                <TrendingTitle> <hr /> TRENDING <hr /></TrendingTitle>
+                {render()}
+                <div>
+                    <TrendingTitle>
+                        <hr />
+                        <h2 style={{marginLeft: "-30px"}}>GENRE</h2>
 
-                    <Select options={options} onChange={(e) => {setGenreName(e.value)}}  />
-                    
-                    <hr />
-                </TrendingTitle>
+                        <Select options={options} onChange={(e) => { setGenreName(e.value) }} />
 
-                {findByGenre()}
+                        <hr />
+                    </TrendingTitle>
+
+                    {findByGenre()}
+                </div>
             </div>
-        </div>
+        </Layout>
     );
 }

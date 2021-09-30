@@ -4,8 +4,9 @@ import { MyContext } from "../context/context";
 
 import CheckoutMovie from "../components/Movies/CheckoutMovie"
 
-import {GeralContainer} from "../styles/checkout.pages.style"
+import {GeralContainer, CheckoutButton} from "../styles/checkout.pages.style"
 
+import Layout from "./Layout"
 
 export function Checkout() {
   const { cartMovies, updateMovieToCart } = useContext(MyContext);
@@ -20,7 +21,7 @@ export function Checkout() {
   };
 
   return (
-    <div>
+    <Layout>
       <h1>CHECKOUT</h1>
 
       <div>
@@ -34,9 +35,9 @@ export function Checkout() {
         <GeralContainer>
           CART TOTAL
           <span>{renderTot()}</span>
-          <button>BUY</button>
+          <CheckoutButton>BUY</CheckoutButton>
         </GeralContainer>
       </div>
-    </div>
+    </Layout>
   );
 }

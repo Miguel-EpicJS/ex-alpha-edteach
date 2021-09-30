@@ -1,9 +1,17 @@
-
 import axios from "axios";
 import { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router";
+import { useHistory } from "react-router-dom";
 
 import { MovieImg, Flex, } from "../styles/movieDetails.pages.style"
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+import Slider from "react-slick";
+
+
+import Layout from "./Layout";
 
 
 const imgUrl = "https://image.tmdb.org/t/p/w500/";
@@ -38,8 +46,11 @@ export function MovieDetails() {
 
   const params = useParams();
 
+  const history = useHistory()
+
+
   useEffect(() => {
-    async function fetchData() {
+    const fetchData = async () => {
       setMovie(await getMovie(params.id));
       setRecommendedMovies(await getRecommendedMovies(params.id));
       setCreditsMovies((await getCreditsMovies(params.id)).cast);
@@ -48,26 +59,23 @@ export function MovieDetails() {
     fetchData();
   }, [params.id]);
 
-  const goToMovies = (idMovies) => {
-    window.location.href = `/movies/${idMovies}`;
-  };
-  const goToCredit = (idCredit) => {
-    /* window.location.href=`/credit/${idCredit}`; */
-    console.log("credit")
-  };
 
   const renderRecommendedMovies = useMemo(() => {
+
     if (!recommendedMovies) {
       return null;
+    };
+    const goToMovies = (idMovies) => {
+      history.push(`/movies/${idMovies}`);
     };
 
     return recommendedMovies.results.map((movie) => {
       return (
-        <img alt="" onClick={() => { goToMovies(movie.id) }} src={imgUrl + movie.poster_path} width="300px" style={{margin: "8px"}} />
+        <img alt="" onClick={() => { goToMovies(movie.id) }} src={imgUrl + movie.poster_path} width="300px" style={{ margin: "8px" }} />
       );
     });
 
-  }, [recommendedMovies]);
+  }, [recommendedMovies, history]);
 
 
 
@@ -75,9 +83,9 @@ export function MovieDetails() {
     return <h1>Carregando...</h1>;
   }
   return (
-    <div>
+    <Layout>
       <Flex>
-        <div style={{flexBasis: "50%"}}>
+        <div style={{ flexBasis: "50%" }}>
           <MovieImg src={imgUrl + movie.poster_path} />
         </div>
         <div>
@@ -89,26 +97,34 @@ export function MovieDetails() {
             {movie.overview}
           </p>
         </div>
+
       </Flex  >
-      <div>
-        <h2>Authors</h2>
+      <Flex>
+        <div style={{ width: "500px" }}>
+          <h2>Authors</h2>
+          <Slider infinite={true} speed={500} slidesToShow={1} slidesToScroll={1} autoplay={true} centerMode={true}>
+            {
+              creditsMovies.map((movie) => {
+                return (
+                  <div><img src={imgUrl + movie.profile_path} width="400px" alt={movie.name} style={{ margin: "5px" }} /></div>
+                )
+              })
+            }
+          </Slider>
+        </div>
+        <div>
+          <h2>Recommended Movies</h2>
 
-        {
-          creditsMovies.map((movie) => {
-            return (
-              <img src={imgUrl + movie.profile_path} onClick={() => goToCredit(movie.credit_id)} width="200px" alt="" style={{margin: "5px"}} />
-            )
-          })
-        }
-      </div>
-      <div>
-        <h2>Recommended Movies</h2>
-
-        {
-          renderRecommendedMovies
-        }
-      </div>
-    </div>
+          <div style={{ width: "500px" }}>
+            <Slider infinite={true} speed={500} slidesToShow={1} slidesToScroll={1} autoplay={true} centerMode={true}>
+              {
+                renderRecommendedMovies
+              }
+            </Slider>
+          </div>
+        </div>
+      </Flex>
+    </Layout>
   );
 
 

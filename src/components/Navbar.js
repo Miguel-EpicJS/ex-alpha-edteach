@@ -10,6 +10,7 @@ import {
 } from "../styles/navbar.component.style";
 
 export default function Navbar() {
+    
     return (
         <NavMenuStyle>
             <div>
