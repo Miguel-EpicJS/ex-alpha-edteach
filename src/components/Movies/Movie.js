@@ -15,24 +15,23 @@ export default function Movie({ movie, navigate, addToCart }) {
     };
 
     return (
-        <MovieContainer className="card">
+        <MovieContainer className="card" data-testid={`movie-trending-name-${movie.id}`}>
             <img
                 onClick={gotToMovie}
                 src={imgUrl + movie.poster_path}
                 alt="..."
                 width="280px"
+                data-testid="movie-img"
             />
             <div>
-                <MovieTitle onClick={gotToMovie}>
+                <MovieTitle onClick={gotToMovie} data-testid="movie-name">
                     {movie.title !== undefined ? movie.title : movie.name}
                 </MovieTitle>
             </div>
 
             <div>
-                <LinkButton onClick={gotToMovie}><VscLinkExternal color="#fff" /></LinkButton>
-                <PriceButton
-                    onClick={onClickAddToCart}
-                >
+                <LinkButton onClick={gotToMovie} data-testid="link-button" ><VscLinkExternal color="#fff" /></LinkButton>
+                <PriceButton onClick={onClickAddToCart} data-testid="price-button" >
                     <RiShoppingCartFill color="#fff" /> R$ {movie.vote_average * 10}
                 </PriceButton>
             </div>

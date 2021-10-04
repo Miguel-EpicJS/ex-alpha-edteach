@@ -37,4 +37,6 @@ export const router = [
         isVisible: true,
         icon: FaUserCircle,
     },
-]
+];
+
+export const LoginRouterComponent = router[0];

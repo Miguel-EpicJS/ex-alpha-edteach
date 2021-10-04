@@ -1,5 +1,5 @@
 import React from "react";
-import { router } from "./router";
+import { router, LoginRouterComponent } from "./router";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { MyProvider } from "./context/context"
 
@@ -11,11 +11,9 @@ export default function RouterExample() {
         
         <Switch>
           {router.map((route) => {
-            const Component = route.component;
+            const opt = (JSON.parse(localStorage.getItem("login")).logged === true && JSON.parse(localStorage.getItem("login")) !== null) ? {key: route.path, path: route.path, component: route.component} : {key: route.path, path: route.path, component: LoginRouterComponent.component};
             return (
-              <Route key={route.path} path={route.path} exact={true}>
-                <Component key={route.path} />
-              </Route>
+              <Route {...opt} exact={true} />
             );
           })}
         </Switch>

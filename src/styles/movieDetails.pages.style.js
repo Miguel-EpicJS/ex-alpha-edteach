@@ -14,3 +14,14 @@ export const Flex = styled.div`
     margin-top: 50px;
     text-align:center;
 `
+
+export const ImageTextOverlay = styled.div`
+    position: absolute; 
+    width: 50%; 
+    background: #333333cc; 
+    color: white; 
+    padding: 11.2% 15%; 
+    top: 15.3%; 
+    left: 10%; 
+    font-size: 30px;
+`

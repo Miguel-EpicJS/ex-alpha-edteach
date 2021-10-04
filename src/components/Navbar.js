@@ -19,7 +19,7 @@ export default function Navbar() {
                         .filter((route) => route.isVisible)
                         .map((route) => {
                             return (
-                                <LiMenuStyle>
+                                <LiMenuStyle key={route.path}>
                                     <LinkMenuStyle>
                                         <Link
                                             className="nav-link active"

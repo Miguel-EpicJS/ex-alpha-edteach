@@ -3,11 +3,11 @@ import { useHistory } from "react-router-dom";
 import Movie from "./Movie";
 import { MyContext } from "../../context/context";
 import { MovieService } from "../../services/MovieService";
-import { MOVIES } from "../../tests/produtos";
+import { MOVIES } from "../../tests/movies";
 
-import { TrendingTitle } from "../../styles/movies.components.style"
+import { TrendingTitle } from "../../styles/movies.components.style";
 
-import Select from "react-select"
+import Select from "react-select";
 
 import Layout from "../../pages/Layout";
 
@@ -27,7 +27,7 @@ export function Movies() {
     const loadOptions = () => {
         for (let i = 0; i < genres.length; i++) {
             options.push({ value: genres[i].id, label: genres[i].name });
-        }
+        };
     };
 
     useEffect(() => {
@@ -104,7 +104,7 @@ export function Movies() {
                 <div>
                     <TrendingTitle>
                         <hr />
-                        <h2 style={{marginLeft: "-30px"}}>GENRE</h2>
+                        <p style={{marginLeft: "-30px"}}>GENRE</p>
 
                         <Select options={options} onChange={(e) => { setGenreName(e.value) }} />
 

@@ -54,6 +54,7 @@ function FormikLoginForm(props) {
                       placeholder="email@email.com.br"
                       valid={touched.email && !errors.email}
                       error={touched.email && errors.email}
+                      data-testid="email-field"
                     />
                   </Label>
                   <ErrorMessage name="email">
@@ -71,6 +72,7 @@ function FormikLoginForm(props) {
                       placeholder="**********"
                       valid={touched.password && !errors.password}
                       error={touched.password && errors.password}
+                      data-testid="password-field"
                     />
                   </Label>
                   {errors.password && touched.password && (
@@ -79,7 +81,7 @@ function FormikLoginForm(props) {
                     </StyledInlineErrorMessage>
                   )}
 
-                  <Submit type="submit" disabled={!isValid}>
+                  <Submit type="submit" disabled={!isValid} data-testid="submit-button">
                     { `Submit`}
                   </Submit>
                 </Form>
