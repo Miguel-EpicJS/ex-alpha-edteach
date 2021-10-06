@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FormikLoginForm from "../components/Formik/LoginForm";
 import { useHistory } from "react-router-dom";
 
@@ -7,7 +7,8 @@ export default function LoginForm() {
     email: '',
     password: ''
   }
-  const history = useHistory()
+  const history = useHistory();
+  const [isWrong, setIsWrong] = useState(false);
 
 
   const onSubmit = values => {
@@ -21,11 +22,14 @@ export default function LoginForm() {
       const log = {...user, logged: true, logged_date: new Date().getMilliseconds(), disconnected_date: null};
 
       localStorage.setItem("login", JSON.stringify(log));
+      setIsWrong(false);
     
       history.push("/movies");
     }else{
       const user = JSON.parse(localStorage.getItem("login"));
       user.attempted.push(new Date().getMilliseconds());
+      setIsWrong(true);
+      setTimeout(() => {setIsWrong(false);}, 1001);
     }
 
     console.log(JSON.parse(localStorage.getItem("login")));
@@ -33,7 +37,7 @@ export default function LoginForm() {
 
   return (
     <div>
-      <FormikLoginForm initialValues={initialValues} onSubmit={onSubmit} />
+      <FormikLoginForm isWrong={isWrong} initialValues={initialValues} onSubmit={onSubmit} />
     </div>
   )
 }

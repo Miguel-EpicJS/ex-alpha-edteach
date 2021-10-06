@@ -1,6 +1,10 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import FilteredPropsInputField from "../components/Formik/FilteredPropsInputField";
 import img from '../img/login-background.jpg'
+
+const shake = keyframes`
+  
+`;
 
 export const LoginBody = styled.div`
     background-image: url(${img});
@@ -130,6 +134,7 @@ export const Input = styled(FilteredPropsInputField)`
         border: 1px solid rgb(191, 49, 12);
       }
     `}
+}
 `;
 
 export const StyledInlineErrorMessage = styled.div`
@@ -159,6 +164,41 @@ export const Submit = styled.button`
   padding: 0.5rem 1rem;
   border: 0;
 
+  ${({ animate }) =>
+  animate && css`
+  & {
+    animation: shake 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    background: #ff4133;
+  }
+
+  @keyframes shake {
+    10%,
+    90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+      transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+  `
+  }
+
   &:active,
   &:focus,
   &:hover {
@@ -176,4 +216,6 @@ export const Submit = styled.button`
       cursor: not-allowed;
     }
   }
+
+
 `;

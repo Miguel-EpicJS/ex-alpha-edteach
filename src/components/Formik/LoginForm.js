@@ -81,7 +81,7 @@ function FormikLoginForm(props) {
                     </StyledInlineErrorMessage>
                   )}
 
-                  <Submit type="submit" disabled={!isValid} data-testid="submit-button">
+                  <Submit animate={props.isWrong} type="submit" disabled={!isValid} data-testid="submit-button">
                     { `Submit`}
                   </Submit>
                 </Form>
