@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import FilteredPropsInputField from "../components/Formik/FilteredPropsInputField";
 import img from '../img/login-background.jpg'
 
