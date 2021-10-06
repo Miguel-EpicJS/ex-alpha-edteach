@@ -2,10 +2,6 @@ import styled, { css, keyframes } from "styled-components";
 import FilteredPropsInputField from "../components/Formik/FilteredPropsInputField";
 import img from '../img/login-background.jpg'
 
-const shake = keyframes`
-  
-`;
-
 export const LoginBody = styled.div`
     background-image: url(${img});
     height: 100vh;
