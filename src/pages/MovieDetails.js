@@ -113,7 +113,7 @@ export function MovieDetails() {
       </Flex  >
       <Flex>
         <div style={{ width: "500px" }}>
-          <h2>Authors</h2>
+          <h2>Actors</h2>
           <Slider infinite={true} speed={500} slidesToShow={2} slidesToScroll={1} autoplay={true} centerMode={true} rows={4}>
             {
               renderCredits
