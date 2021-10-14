@@ -29,7 +29,7 @@ export function User() {
         setAdmin(user);
       };
     });
-  }, []);
+  }, [users]);
 
   const loggout = () => {
     const user = JSON.parse(localStorage.getItem("login"));
