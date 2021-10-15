@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { router, LoginRouterComponent } from "./router";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { MyProvider } from "./context/context"
 
 export default function RouterExample() {
+
+  useEffect(() => {
+    if(localStorage.getItem("login") === null){
+      localStorage.setItem("login", JSON.stringify({logged: false, user: null}))
+    }
+  }, [])
 
   return (
     <Router>
