@@ -22,8 +22,6 @@ export function Checkout() {
 
   return (
     <Layout>
-      <h1>CHECKOUT</h1>
-
       <div>
         <div>
           {

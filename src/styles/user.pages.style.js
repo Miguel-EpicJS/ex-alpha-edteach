@@ -14,6 +14,8 @@ export const UserInput = styled.input`
     margin: 10px;
     padding: 10px 10px;
     font-size: 20px;
+    background-color: #fff;
+    border: 1px solid black;
 `
 
 export const UserButton = styled.button`
@@ -24,4 +26,19 @@ export const UserButton = styled.button`
     padding: 10px 20px;
     font-size: 20px;
     margin: 20px;
+`
+
+export const UserEyeicon = styled.i`
+    &:hover{
+        color: #aaaaae;
+        cursor: pointer;
+    }
+`
+
+export const MarginName = styled.span`
+    margin-left: 48px;
+`
+
+export const MarginEmail = styled.span`
+    margin-left: 54px;
 `

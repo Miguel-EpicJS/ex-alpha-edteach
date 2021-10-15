@@ -1,36 +1,19 @@
 import { useHistory } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Layout from "./Layout";
 
-import { UserContainer, UserInput, UserButton } from "../styles/user.pages.style";
+import { UserContainer, UserInput, UserButton, UserEyeicon, MarginName, MarginEmail } from "../styles/user.pages.style";
 
+import {AiFillEye} from "react-icons/ai";
 
-const getAdminInformation = () => {
-  if(localStorage.getItem("admin") === null)
-  {
-    localStorage.setItem("admin", JSON.stringify({name: "Admin", email: "admin@admin.com", password: "admin"}));
-  };
-
-};
-
+const eye = <AiFillEye />;
 
 export function User() {
   const history = useHistory();
-  const [users, setUsers] = useState([]);
-  const [admin, setAdmin] = useState({});
+  const admin = JSON.parse(localStorage.getItem("users"))[0];
+  const [passwordShown, setPasswordShown] = useState(false);
 
-  useEffect(() => {
-    getAdminInformation();
-    
-    setUsers(JSON.parse(localStorage.getItem("users")));
-    users.forEach((user) => {
-      const us = JSON.parse(localStorage.getItem("login"));
-      if (us.user === user.name) {
-        setAdmin(user);
-      };
-    });
-  }, [users]);
-
+ 
   const loggout = () => {
     const user = JSON.parse(localStorage.getItem("login"));
     const log = { ...user, logged: false, user: null };
@@ -39,6 +22,10 @@ export function User() {
 
     history.push("/");
   }
+
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
   
   return (
     <Layout>
@@ -46,18 +33,17 @@ export function User() {
         <h1>USER</h1>
         <div>
           <div>
-            Name: <UserInput disabled  value={admin.name || ""} />
+            Name: <MarginName></MarginName> <UserInput disabled  value={admin.name} />
           </div>
           <div>
-            Email: <UserInput disabled  value={admin.login || ""} />
+            Email: <MarginEmail></MarginEmail> <UserInput disabled  value={admin.login} />
           </div>
           <div>
-            Password: <UserInput disabled  value={admin.password || ""} type="password" />
+            Password: <UserInput disabled  value={admin.password} type={passwordShown ? "text" : "password"} />  <UserEyeicon onClick={togglePasswordVisiblity}>{eye}</UserEyeicon>
           </div>
         </div>
 
         <div>
-          <UserButton>SAVE</UserButton>
           <UserButton onClick={() => { loggout() }}>LOGGOUT</UserButton>
         </div>
       </UserContainer>

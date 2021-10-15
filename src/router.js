@@ -30,6 +30,7 @@ export const router = [
         component: Checkout,
         isVisible: true,
         icon: IoMdCart,
+        showCart: true,
     },
     {
         path: "/user",

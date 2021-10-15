@@ -30,22 +30,20 @@ export default function LoginForm() {
 
   const onSubmit = values => {
     if(localStorage.getItem("login") === null){
-      const log = { logged: false, created_date: new Date().getMilliseconds(), logged_date: null, disconnected_date: null, attempted: [new Date().getMilliseconds()]};
+      const log = { logged: false, user: null};
       localStorage.setItem("login", JSON.stringify(log));
     }
 
+    setIsWrong(true);
     users.forEach((user) => {
       if (values.email === user.login && values.password === user.password) {
-        const user = JSON.parse(localStorage.getItem("login"));
-        const log = {logged: true, user: user.name};
-  
+        const log = {logged: true, user: user.login};
+
         localStorage.setItem("login", JSON.stringify(log));
         setIsWrong(false);
       
         history.push("/movies");
       }else{
-        const user = JSON.parse(localStorage.getItem("login"));
-        user.attempted.push(new Date().getMilliseconds());
         setIsWrong(true);
         setTimeout(() => {setIsWrong(false);}, 1001);
         history.push("/");

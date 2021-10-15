@@ -35,3 +35,8 @@ export const LinkMenuStyle = styled.span`
     font-size: 3em;
     text-align: center;
 `
+
+export const SupValue = styled.sup`
+    color: #4B5C6B;
+    text-decoration: none;
+`

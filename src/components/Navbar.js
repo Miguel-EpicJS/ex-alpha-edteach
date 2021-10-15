@@ -7,6 +7,7 @@ import {
     UlMenuStyle,
     LiMenuStyle,
     LinkMenuStyle,
+    SupValue,
 } from "../styles/navbar.component.style";
 
 export default function Navbar() {
@@ -22,11 +23,12 @@ export default function Navbar() {
                                 <LiMenuStyle key={route.path}>
                                     <LinkMenuStyle>
                                         <Link
-                                            className="nav-link active"
                                             aria-current="page"
+                                            style={{ textDecoration: "none" }}
                                             to={route.path}
                                         >
                                             {<route.icon color="#4B5C6B" />}
+                                            {route.showCart === true ? <SupValue>{JSON.parse(localStorage.getItem("cartMovies")).length}</SupValue> : "" }
                                         </Link>
                                     </LinkMenuStyle>
                                 </LiMenuStyle>
