@@ -10,6 +10,10 @@ const temaDaAmericanas = {
   color: "tomato",
 };
 
+if(localStorage.getItem("login") === null){
+  localStorage.setItem("login", JSON.stringify({logged: false, user: null}))
+};
+
 ReactDOM.render(
   <React.StrictMode>
     <MyProvider>

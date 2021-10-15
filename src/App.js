@@ -8,8 +8,8 @@ export default function RouterExample() {
   useEffect(() => {
     if(localStorage.getItem("login") === null){
       localStorage.setItem("login", JSON.stringify({logged: false, user: null}))
-    }
-  }, [])
+    };
+  }, []);
 
   return (
     <Router>
